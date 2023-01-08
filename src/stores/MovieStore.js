@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
 
 export const useMovieStore = defineStore('movieStore', {
     state: () => ({
@@ -25,5 +26,17 @@ export const useMovieStore = defineStore('movieStore', {
         deleteMovie(id) {
             this.movies = this.movies.filter(movie => movie.id !== id)
         }
+    }
+})
+
+export const useMovieStore = defineStore('movieStore', () => {
+    const movies = ref([])
+    const activeTab = ref(1)
+    const getWatchedMovies = computed(() => movies.value.filter(movie => movie.isWatched))
+    const getLengthOfAllFilms = computed(() => movies.value.length)
+
+    // экшены на стал переписывать там все тоже
+    return {
+        movies, activeTab, getLengthOfAllFilms, getWatchedMovies
     }
 })
