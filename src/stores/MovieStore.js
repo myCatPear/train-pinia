@@ -10,7 +10,7 @@ export const useMovieStore = defineStore('movieStore', {
                     "After being bitten by a genetically altered spider at Oscorp, nerdy but endearing high school student Peter Parker is endowed with amazing powers to become the superhero known as Spider-Man.",
                 poster_path: "/gh4cZbhZxyTbgxQPxD0dOudNPTn.jpg",
                 release_date: "2002-05-01",
-                isWatched: true,
+                isWatched: false,
             },
             {
                 id: 2,
@@ -23,7 +23,7 @@ export const useMovieStore = defineStore('movieStore', {
             },
 
         ],
-        activeTab: 1,
+        activeTab: 2,
     }),
     getters: {
         getWatchedMovies() {
@@ -31,6 +31,18 @@ export const useMovieStore = defineStore('movieStore', {
         },
         getLengthOfAllFilms() {
             return this.movies.length;
+        }
+    },
+    actions: {
+        setActiveTabValue(value) {
+            this.activeTab = value;
+        },
+        setIsWatchedMovie(id, value) {
+            const idx = this.movies.findIndex(movie => movie.id === id);
+            this.movies[idx].isWatched = value;
+        },
+        deleteMovie(id) {
+            this.movies = this.movies.filter(movie => movie.id !== id)
         }
     }
 })
