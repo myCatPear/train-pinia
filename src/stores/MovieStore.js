@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 export const useMovieStore = defineStore('movieStore', {
     state: () => ({
@@ -29,14 +29,23 @@ export const useMovieStore = defineStore('movieStore', {
     }
 })
 
-export const useMovieStore = defineStore('movieStore', () => {
-    const movies = ref([])
-    const activeTab = ref(1)
-    const getWatchedMovies = computed(() => movies.value.filter(movie => movie.isWatched))
-    const getLengthOfAllFilms = computed(() => movies.value.length)
 
-    // экшены на стал переписывать там все тоже
-    return {
-        movies, activeTab, getLengthOfAllFilms, getWatchedMovies
-    }
-})
+
+// export const useMovieStore = defineStore('movieStore', () => {
+//     const movies = ref([])
+//     const activeTab = ref(1)
+// const moviesOnLocalStorage = localStorage.getItem("movies")
+// if (moviesOnLocalStorage) {
+//     movies.value = JSON.parse(moviesOnLocalStorage)._value
+// }
+//     const getWatchedMovies = computed(() => movies.value.filter(movie => movie.isWatched))
+//     const getLengthOfAllFilms = computed(() => movies.value.length)
+
+//     // экшены на стал переписывать там все тоже
+//     return {
+//         movies, activeTab, getLengthOfAllFilms, getWatchedMovies
+//     }
+// watch(() => movies, (state) => {
+//     localStorage.setItem("movies", JSON.stringify(state))
+// }, {deep:true})
+// })
