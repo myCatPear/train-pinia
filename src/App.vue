@@ -1,29 +1,76 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { useMovieStore } from './stores/MovieStore'
+import Movie from './components/Movie.vue'
+const movieStore = useMovieStore()
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <main>
+    <header class="header">
+      <img src="/logo.svg" alt="logo" class="header-logo" />
+      <h2>My Favorite Movies</h2>
+    </header>
+    <div class="tabs">
+      <button :class="['btn', { btn_green: movieStore.activeTab === 1 }]">
+        Favorite
+      </button>
+      <button :class="['btn', { btn_green: movieStore.activeTab === 2 }]">
+        Search
+      </button>
+    </div>
+
+    <div class="movies" v-if="movieStore.activeTab === 1">
+      <div>
+        <h3>Watched Movies count: {{ movieStore.getWatchedMovies.length }}</h3>
+        <Movie
+          v-for="movie of movieStore.getWatchedMovies"
+          :key="movie.id"
+          :movie="movie"
+        />
+      </div>
+
+      <h3>All Movies</h3>
+      <div>Total count movies: {{ movieStore.getLengthOfAllFilms }}</div>
+      <Movie
+        v-for="movie of movieStore.movies"
+        :key="movie.id"
+        :movie="movie"
+      />
+    </div>
+    <div class="search" v-else>Search</div>
+  </main>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+<style lang="css">
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.header-logo {
+  max-width: 50px;
+  margin-right: 10px;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.btn {
+  border: none;
+  width: 100px;
+  height: 40px;
+  font-size: 14px;
+  margin: 0 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #efefef;
+}
+.btn:hover {
+  opacity: 0.7;
+}
+.btn_green {
+  background: #37df5c;
+}
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 </style>
