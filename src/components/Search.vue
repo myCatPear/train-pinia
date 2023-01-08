@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useSearchStore } from '../stores/SearchStore'
 import LoaderVue from './Loader.vue'
+import Movie from './Movie.vue'
 const searchStore = useSearchStore()
 const searchMovie = ref('')
 </script>
@@ -16,8 +17,9 @@ const searchMovie = ref('')
     />
   </form>
   <LoaderVue v-if="searchStore.isLoadingSearch" />
-  <!-- не работает апишка , поэтому вывод такой, так бы можно было впихнуть компоненту Movie -->
+
   <div v-else>
+    <!-- не работает апишка , поэтому вывод такой, так бы можно было впихнуть компоненту Movie -->
     {{ searchStore.movies }}
   </div>
 </template>

@@ -26,7 +26,12 @@
         </button>
       </div>
       <div class="movie-buttons" v-else>
-        <button class="btn btn_green">Add</button>
+        <button
+          class="btn btn_green"
+          @click="searchStore.addToUserMovies(movie)"
+        >
+          Add
+        </button>
       </div>
     </div>
   </div>
@@ -34,6 +39,7 @@
 
 <script setup>
 import { useMovieStore } from '../stores/MovieStore'
+import { useSearchStore } from '../stores/SearchStore'
 const props = defineProps({
   movie: {
     type: Object,
@@ -47,6 +53,7 @@ const props = defineProps({
   },
 })
 const movieStore = useMovieStore()
+const searchStore = useSearchStore()
 </script>
 
 <style lang="css" scoped>
